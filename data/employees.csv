@@ -1,0 +1,11 @@
+id,name,email,department,salary,joining_date
+1,Amit Sharma,amit.sharma@company.com,Engineering,75000,2023-01-15
+2,Priya Patel,priya.patel@company.com,Marketing,65000,2023-03-20
+3,Rahul Verma,rahul.verma@company.com,Engineering,80000,2022-11-10
+4,Sneha Joshi,,HR,55000,2023-06-01
+5,Vikram Singh,vikram.singh@company.com,Engineering,90000,2021-08-25
+6,Neha Gupta,neha.gupta@company.com,Finance,70000,2023-02-14
+7,Raj Kumar,raj.kumar@company.com,Marketing,60000,
+8,Pooja Mehta,pooja.mehta@company.com,HR,52000,2023-09-30
+9,Arjun Nair,arjun.nair@company.com,Engineering,-1000,2023-04-12
+10,Kavya Reddy,kavya.reddy@company.com,Finance,68000,2023-07-22

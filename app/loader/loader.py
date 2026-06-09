@@ -25,3 +25,22 @@ if __name__ == "__main__":
 
     load_users(transform_users(fetch_users()))
     load_posts(transform_posts(fetch_posts()))
+
+
+def load_employees(df: pd.DataFrame):
+    with engine.connect() as conn:
+        conn.execute(text("TRUNCATE TABLE employees RESTART IDENTITY CASCADE"))
+        conn.commit()
+
+    df.to_sql("employees", engine, if_exists="append", index=False)
+    print(f"✅ Loaded {len(df)} employees into PostgreSQL")
+
+if __name__ == "__main__":
+    from app.ingestion.api_ingestor import fetch_users, fetch_posts
+    from app.ingestion.csv_ingestor import fetch_csv
+    from app.transformation.transformer import transform_users, transform_posts
+    from app.validation.validator import validate_employees
+
+    load_users(transform_users(fetch_users()))
+    load_posts(transform_posts(fetch_posts()))
+    load_employees(validate_employees(fetch_csv("data/employees.csv")))
