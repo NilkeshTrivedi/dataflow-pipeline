@@ -91,3 +91,22 @@ def get_stats(db: Session = Depends(get_db)):
         avg_salary=round(avg_salary, 2),
         departments=departments
     )
+
+from datetime import datetime
+
+pipeline_log = []
+
+@router.get("/pipeline/status", tags=["Pipeline"])
+def pipeline_status():
+    return {
+        "status": "running",
+        "last_checked": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "schedule": "Every 1 hour",
+        "endpoints": {
+            "users": "/api/v1/users",
+            "posts": "/api/v1/posts",
+            "employees": "/api/v1/employees",
+            "stats": "/api/v1/stats"
+        }
+    }
+
