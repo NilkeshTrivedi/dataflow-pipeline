@@ -1,17 +1,17 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from app.api.routes import router
-from app.scheduler.scheduler import start_scheduler, run_pipeline
+from app.scheduler.scheduler import start_scheduler
+from app.startup import initialize
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-
-    print("Starting DataFlow Pipeline API ")
+    print("🚀 Starting DataFlow Pipeline API...")
+    initialize()
     scheduler = start_scheduler()
-    run_pipeline()
     yield
     scheduler.shutdown()
-    print("Scheduler Stopped")
+    print("🛑 Scheduler stopped")
 
 app = FastAPI(
     title="DataFlow Pipeline API",
