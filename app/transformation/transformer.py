@@ -1,4 +1,7 @@
 import pandas as pd
+from app.logger import get_logger
+
+logger = get_logger(__name__)
 
 def transform_users(raw_users: list[dict]) -> pd.DataFrame:
     df = pd.DataFrame(raw_users)
@@ -21,7 +24,8 @@ def transform_users(raw_users: list[dict]) -> pd.DataFrame:
     # Drop rows with missing critical fields
     df = df.dropna(subset=["name", "email", "username"])
 
-    print(f"✅ Transformed {len(df)} users")
+    logger.info(f"Transformed {len(df)} users")
+
     return df
 
 def transform_posts(raw_posts: list[dict]) -> pd.DataFrame:
@@ -41,7 +45,7 @@ def transform_posts(raw_posts: list[dict]) -> pd.DataFrame:
     df = df.drop_duplicates(subset=["id"])
     df = df.dropna(subset=["title", "body"])
 
-    print(f"✅ Transformed {len(df)} posts")
+    logger.info(f"Transformed {len(df)} posts")
     return df
 
 if __name__ == "__main__":
@@ -50,7 +54,5 @@ if __name__ == "__main__":
     users_df = transform_users(fetch_users())
     posts_df = transform_posts(fetch_posts())
 
-    print("\nUsers sample:")
-    print(users_df.head(3))
-    print("\nPosts sample:")
-    print(posts_df.head(3))
+    logger.info(f"Users sample:\n{users_df.head(3)}")
+    logger.info(f"Posts sample:\n{posts_df.head(3)}")

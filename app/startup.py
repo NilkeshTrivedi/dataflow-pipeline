@@ -5,18 +5,20 @@ from app.ingestion.api_ingestor import fetch_users, fetch_posts
 from app.ingestion.csv_ingestor import fetch_csv
 from app.transformation.transformer import transform_users, transform_posts
 from app.validation.validator import validate_employees
-import time
+from app.logger import get_logger
+
+logger = get_logger(__name__)
 
 def initialize():
-    print("⏳ Creating tables...")
+    logger.info("Creating tables...")
     Base.metadata.create_all(bind=engine)
-    print("✅ Tables ready")
+    logger.info("Tables ready")
 
-    print("⏳ Running initial pipeline...")
+    logger.info("Running initial pipeline...")
     try:
         load_users(transform_users(fetch_users()))
         load_posts(transform_posts(fetch_posts()))
         load_employees(validate_employees(fetch_csv("data/employees.csv")))
-        print("✅ Initial data loaded")
+        logger.info("Initial data loaded successfully")
     except Exception as e:
-        print(f"⚠️ Initial load warning: {e}")
+        logger.warning(f"Initial load warning: {e}")

@@ -6,9 +6,12 @@ from app.ingestion.csv_ingestor import fetch_csv
 from app.transformation.transformer import transform_users, transform_posts
 from app.validation.validator import validate_employees
 from app.loader.loader import load_users, load_posts, load_employees
+from app.logger import get_logger
+
+logger = get_logger(__name__)
 
 def run_pipeline():
-    print(f"\n🔄 Pipeline started at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    logger.info(f"Pipeline started at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     try:
         # Step 1 - Ingest
         raw_users = fetch_users()
@@ -25,10 +28,10 @@ def run_pipeline():
         load_posts(clean_posts)
         load_employees(clean_employees)
 
-        print(f"✅ Pipeline completed successfully at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        logger.info(f"Pipeline completed successfully at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
     except Exception as e:
-        print(f"❌ Pipeline failed: {str(e)}")
+        logger.error(f"Pipeline failed: {str(e)}")
 
 def start_scheduler():
     scheduler = BackgroundScheduler()
@@ -40,5 +43,5 @@ def start_scheduler():
         replace_existing=True
     )
     scheduler.start()
-    print("⏰ Scheduler started — pipeline runs every 1 hour")
+    logger.info("Scheduler started — pipeline runs every 1 hour")
     return scheduler
