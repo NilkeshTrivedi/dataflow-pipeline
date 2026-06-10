@@ -83,7 +83,7 @@ dataflow-pipeline/
 ├── Dockerfile              # App containerization
 ├── docker-compose.yml      # Multi-container setup
 └── requirements.txt        # Python dependencies
-└── README.md      
+
 ---
 
 ## 🛠 Tech Stack
