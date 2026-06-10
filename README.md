@@ -8,6 +8,9 @@ A production-grade **ETL Data Pipeline** built with Python, FastAPI, PostgreSQL,
 
 ## 🏗 Architecture
 
+Data Sources → Ingestion → Transformation → Validation → PostgreSQL → FastAPI → Client
+(API + CSV)   (Python)     (Pandas)        (Custom)    (Docker)    (REST)
+
 ---
 
 ## ✨ Features
@@ -63,6 +66,24 @@ Visit:
 
 ## 🗂 Project Structure
 
+dataflow-pipeline/
+├── app/
+│   ├── ingestion/          # API + CSV data fetching
+│   ├── transformation/     # Pandas data cleaning
+│   ├── validation/         # Data quality checks
+│   ├── loader/             # PostgreSQL data loading
+│   ├── api/                # FastAPI routes + schemas
+│   ├── scheduler/          # APScheduler automation
+│   ├── config.py           # Environment settings
+│   ├── database.py         # SQLAlchemy engine
+│   └── models.py           # Database table definitions
+├── tests/                  # 27 pytest tests
+├── data/                   # CSV data sources
+├── .github/workflows/      # GitHub Actions CI/CD
+├── Dockerfile              # App containerization
+├── docker-compose.yml      # Multi-container setup
+└── requirements.txt        # Python dependencies
+└── README.md      
 ---
 
 ## 🛠 Tech Stack
