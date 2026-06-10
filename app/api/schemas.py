@@ -1,8 +1,8 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import Optional
-from datetime import datetime
 
 class UserResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     id: int
     name: str
     username: str
@@ -12,28 +12,21 @@ class UserResponse(BaseModel):
     city: Optional[str] = None
     company: Optional[str] = None
 
-    class Config:
-        from_attributes = True
-
 class PostResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     id: int
     user_id: int
     title: str
     body: Optional[str] = None
 
-    class Config:
-        from_attributes = True
-
 class EmployeeResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     id: int
     name: str
     email: Optional[str] = None
     department: Optional[str] = None
     salary: Optional[float] = None
     joining_date: Optional[str] = None
-
-    class Config:
-        from_attributes = True
 
 class StatsResponse(BaseModel):
     total_users: int
